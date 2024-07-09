@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.auth.models import Permission
 
 from customers.models import Customer, User
 
@@ -57,4 +58,23 @@ class RegistrationForm(forms.ModelForm):
         user.set_password(self.cleaned_data["password"])
         if commit:
             user.save()
+        return user
+
+
+class UserModelForm(forms.ModelForm):
+    password = forms.CharField(label='Password', widget=forms.PasswordInput)
+    user_permissions = forms.ModelMultipleChoiceField(
+        queryset=Permission.objects.all(),
+        widget=forms.CheckboxSelectMultiple)
+
+    class Meta:
+        model = User
+        exclude = ()
+
+    def save(self, commit=True):
+        user = super(UserModelForm, self).save(commit=False)
+        user.set_password(self.cleaned_data['password'])
+        if commit:
+            user.save()
+            self.save_m2m()
         return user

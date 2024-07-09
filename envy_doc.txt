@@ -1,0 +1,7 @@
+DEBUG=***
+SECRET_KEY=***
+NAME=***
+USER=***
+PASSWORD=***
+HOST=***
+PORT=***
