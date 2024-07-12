@@ -1,0 +1,2 @@
+pip install django-import-export
+pip install openpyxl lxml pyyaml
