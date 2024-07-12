@@ -1,7 +1,10 @@
 from django import forms
 from django.contrib.auth.models import Permission
-
 from customers.models import Customer, User
+
+
+class ImportForm(forms.Form):
+    import_file = forms.FileField()
 
 
 class CustomerModelForm(forms.ModelForm):
@@ -78,3 +81,14 @@ class UserModelForm(forms.ModelForm):
             user.save()
             self.save_m2m()
         return user
+
+
+EXPORT_FORMAT_CHOICES = [
+    ('csv', 'CSV'),
+    ('xlsx', 'Excel'),
+    ('json', 'JSON'),
+]
+
+
+class ExportForm(forms.Form):
+    export_format = forms.ChoiceField(choices=EXPORT_FORMAT_CHOICES)

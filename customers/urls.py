@@ -1,7 +1,7 @@
 from django.urls import path
 
 from customers.views.customers import customers, customer_detail, add_customer, edit_customer, delete_customer, \
-    filter_page, sort_by_id, sort_by_id_desc, sort_by_name, sort_by_date
+    filter_page, sort_by_id, sort_by_id_desc, sort_by_name, sort_by_date, export_data
 from customers.views.auth import login_page, logout_page, sign_up
 
 urlpatterns = [
@@ -15,6 +15,7 @@ urlpatterns = [
     path('sort_by/sort_by_id_desc', sort_by_id_desc, name='sort_by_id_desc'),
     path('sort_by/sort_by_name', sort_by_name, name='sort_by_name'),
     path('sort_by/sort_by_date', sort_by_date, name='sort_by_date'),
+    path('exporting/', export_data, name='export_data'),
 
     path('login/', login_page, name='login'),
     path('logout/', logout_page, name='logout'),
