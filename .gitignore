@@ -1,7 +1,5 @@
 .venv
 .env
-customers/migrations/0001_initial.py
-app/migrations/0001_initial.py
 .gitignore
 media
 db.sqlite3
