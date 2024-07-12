@@ -2,10 +2,9 @@ from django.core.paginator import Paginator
 from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from tablib import Dataset
 
 from customers.admin import CustomerResource
-from customers.forms import CustomerModelForm, Customer, ImportForm, ExportForm
+from customers.forms import CustomerModelForm, Customer, ExportForm
 
 
 def customers(request):
@@ -29,7 +28,6 @@ def customers(request):
 def customer_detail(request, customer_id):
     customer = Customer.objects.get(id=customer_id)
     context = {'customer': customer}
-    print(context)
     return render(request, 'customers/customer-details.html', context)
 
 
@@ -96,48 +94,36 @@ def sort_by_date(request):
 
 
 def export_data(request):
-    if request.method == 'POST':
+    if request.method == 'GET':
         form = ExportForm(request.POST)
         if form.is_valid():
             export_format = form.cleaned_data['export_format']
             resource = CustomerResource
             dataset = resource.export()
-
+            print(1)
             if export_format == 'csv':
                 response = HttpResponse(dataset.csv, content_type='text/csv')
                 response['Content-Disposition'] = 'attachment; filename="exported_data.csv"'
+                print(2)
+                return redirect('customers')
+
             elif export_format == 'xlsx':
                 response = HttpResponse(dataset.xlsx,
                                         content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
                 response['Content-Disposition'] = 'attachment; filename="exported_data.xlsx"'
+                return redirect('customers')
+
             elif export_format == 'json':
                 response = HttpResponse(dataset.json, content_type='application/json')
                 response['Content-Disposition'] = 'attachment; filename="exported_data.json"'
+                print(3)
+                return redirect('customers')
             else:
                 response = HttpResponse(status=400)
+                return redirect('customers')
 
             return response
     else:
         form = ExportForm()
-
-    return render(request, 'customers/customers.html', {'form': form})
-
-
-def import_data(request):
-    if request.method == 'POST':
-        form = ImportForm(request.POST, request.FILES)
-        if form.is_valid():
-            dataset = Dataset()
-            new_data = request.FILES['import_file']
-            imported_data = dataset.load(new_data.read(), format='xlsx')  # Adjust the format as needed
-            resource = CustomerResource()
-            result = resource.import_data(dataset, dry_run=True)
-
-            if not result.has_errors():
-                resource.import_data(dataset, dry_run=False)
-                return redirect('customers')
-
-    else:
-        form = ImportForm()
 
     return render(request, 'customers/customers.html', {'form': form})

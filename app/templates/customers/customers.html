@@ -2301,140 +2301,148 @@
                                    type="button">
                                     <span class="fas fa-filter" data-fa-transform="shrink-3 down-2"></span>
                                     <span class="d-none d-sm-inline-block ms-1">Filter</span></a>
+                                <form method="get" action="{% url 'export_data' %}">
+                                    <select id="export-options" name="export_options">
+                                        <option value="json">JSON</option>
+                                        <option value="xlsx">Excel</option>
+                                        <option value="csv">CSV</option>
+                                    </select>
+                                    <button class="btn btn-falcon-default btn-sm" type="submit">
+                                        <span class="fas fa-external-link-alt"
+                                              data-fa-transform="shrink-3 down-2"></span>
+                                        <span class="d-none d-sm-inline-block ms-1">Export</span></button>
+                                </form>
                             </div>
-                            <a href="{% url 'export_data' %}" class="btn btn-falcon-default btn-sm"
-                               type="button">
-                                <span class="fas fa-external-link-alt" data-fa-transform="shrink-3 down-2"></span>
-                                <span class="d-none d-sm-inline-block ms-1">Filter</span></a>
                         </div>
                     </div>
-                </div>
-                <div class="card-body p-0">
-                    <div class="table-responsive">
-                        <table class="table table-sm table-striped fs--1 mb-0 overflow-hidden">
-                            <thead class="bg-200 text-900">
-                            <tr>
-                                <th>
-                                    <div class="form-check fs-0 mb-0 d-flex align-items-center">
-                                        <input class="form-check-input" id="checkbox-bulk-customers-select"
-                                               type="checkbox"
-                                               data-bulk-select='{"body":"table-customers-body","actions":"table-customers-actions","replacedElement":"table-customers-replace-element"}'/>
-                                    </div>
-                                </th>
-                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="name">Name</th>
-                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">Email</th>
-                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="phone">Phone</th>
-                                <th class="sort pe-1 align-middle white-space-nowrap ps-5" data-sort="address"
-                                    style="min-width: 200px;">Billing Address
-                                </th>
-                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="joined">Joined</th>
-                                <th class="align-middle no-sort"></th>
-                            </tr>
-                            </thead>
-                            <tbody class="list" id="table-customers-body">
-                            {% for cus in Customers %}
-                                <tr class="btn-reveal-trigger">
-                                    <td class="align-middle py-2" style="width: 28px;">
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-sm table-striped fs--1 mb-0 overflow-hidden">
+                                <thead class="bg-200 text-900">
+                                <tr>
+                                    <th>
                                         <div class="form-check fs-0 mb-0 d-flex align-items-center">
-                                            <input class="form-check-input" type="checkbox" id="customer-0"
-                                                   data-bulk-select-row="data-bulk-select-row"/>
+                                            <input class="form-check-input" id="checkbox-bulk-customers-select"
+                                                   type="checkbox"
+                                                   data-bulk-select='{"body":"table-customers-body","actions":"table-customers-actions","replacedElement":"table-customers-replace-element"}'/>
                                         </div>
-                                    </td>
-                                    <td class="name align-middle white-space-nowrap py-2"><a
-                                            href="{% url 'customer_detail' cus.id %}">
-                                        <div class="d-flex d-flex align-items-center">
-                                            <div class="avatar avatar-xl me-2">
-                                                {% if cus.image %}
-                                                    <div class="avatar-name rounded-circle"><span><img
-                                                            src="{{ cus.image.url }}"></span></div>
-                                                {% endif %}
-                                            </div>
-                                            <div class="flex-1">
-                                                <h5 class="mb-0 fs--1">{{ cus.name }}</h5>
-                                            </div>
-                                        </div>
-                                    </a></td>
-                                    <td class="email align-middle py-2"><a
-                                            href="mailto:ricky@example.com">{{ cus.email }}</a></td>
-                                    <td class="phone align-middle white-space-nowrap py-2"><a href="tel:2012001851">(201)
-                                        200-1851</a></td>
-                                    <td class="address align-middle white-space-nowrap ps-5 py-2">{{ cus.country }}, {{ cus.city }}</td>
-                                    <td class="joined align-middle py-2">{{ cus.created_date }}</td>
-                                    <td class="align-middle white-space-nowrap py-2 text-end">
-                                        <div class="dropdown font-sans-serif position-static">
-                                            <button class="btn btn-link text-600 btn-sm dropdown-toggle btn-reveal"
-                                                    type="button" id="customer-dropdown-0" data-bs-toggle="dropdown"
-                                                    data-boundary="window" aria-haspopup="true"
-                                                    aria-expanded="false"><span
-                                                    class="fas fa-ellipsis-h fs--1"></span></button>
-                                            <div class="dropdown-menu dropdown-menu-end border py-0"
-                                                 aria-labelledby="customer-dropdown-0">
-                                                <div class="bg-white py-2"><a class="dropdown-item"
-                                                                              href="{% url 'edit_customer' cus.id %}">Edit</a><a
-                                                        class="dropdown-item text-danger"
-                                                        href="{% url 'del_customer' cus.id %}">Delete</a></div>
-                                            </div>
-                                        </div>
-                                    </td>
+                                    </th>
+                                    <th class="sort pe-1 align-middle white-space-nowrap" data-sort="name">Name</th>
+                                    <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">Email</th>
+                                    <th class="sort pe-1 align-middle white-space-nowrap" data-sort="phone">Phone</th>
+                                    <th class="sort pe-1 align-middle white-space-nowrap ps-5" data-sort="address"
+                                        style="min-width: 200px;">Billing Address
+                                    </th>
+                                    <th class="sort pe-1 align-middle white-space-nowrap" data-sort="joined">Joined</th>
+                                    <th class="align-middle no-sort"></th>
                                 </tr>
-                            {% endfor %}
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody class="list" id="table-customers-body">
+                                {% for cus in Customers %}
+                                    <tr class="btn-reveal-trigger">
+                                        <td class="align-middle py-2" style="width: 28px;">
+                                            <div class="form-check fs-0 mb-0 d-flex align-items-center">
+                                                <input class="form-check-input" type="checkbox" id="customer-0"
+                                                       data-bulk-select-row="data-bulk-select-row"/>
+                                            </div>
+                                        </td>
+                                        <td class="name align-middle white-space-nowrap py-2"><a
+                                                href="{% url 'customer_detail' cus.id %}">
+                                            <div class="d-flex d-flex align-items-center">
+                                                <div class="avatar avatar-xl me-2">
+                                                    {% if cus.image %}
+                                                        <div class="avatar-name rounded-circle"><span><img
+                                                                src="{{ cus.image.url }}"></span></div>
+                                                    {% endif %}
+                                                </div>
+                                                <div class="flex-1">
+                                                    <h5 class="mb-0 fs--1">{{ cus.name }}</h5>
+                                                </div>
+                                            </div>
+                                        </a></td>
+                                        <td class="email align-middle py-2"><a
+                                                href="mailto:ricky@example.com">{{ cus.email }}</a></td>
+                                        <td class="phone align-middle white-space-nowrap py-2"><a href="tel:2012001851">(201)
+                                            200-1851</a></td>
+                                        <td class="address align-middle white-space-nowrap ps-5 py-2">{{ cus.country }}, {{ cus.city }}</td>
+                                        <td class="joined align-middle py-2">{{ cus.created_date }}</td>
+                                        <td class="align-middle white-space-nowrap py-2 text-end">
+                                            <div class="dropdown font-sans-serif position-static">
+                                                <button class="btn btn-link text-600 btn-sm dropdown-toggle btn-reveal"
+                                                        type="button" id="customer-dropdown-0" data-bs-toggle="dropdown"
+                                                        data-boundary="window" aria-haspopup="true"
+                                                        aria-expanded="false"><span
+                                                        class="fas fa-ellipsis-h fs--1"></span></button>
+                                                <div class="dropdown-menu dropdown-menu-end border py-0"
+                                                     aria-labelledby="customer-dropdown-0">
+                                                    <div class="bg-white py-2"><a class="dropdown-item"
+                                                                                  href="{% url 'edit_customer' cus.id %}">Edit</a><a
+                                                            class="dropdown-item text-danger"
+                                                            href="{% url 'del_customer' cus.id %}">Delete</a></div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                </div>
-                
-                    {% if Customers.has_previous %}
-                        <li class="page-item">
-                            <a class="page-link" href="?page=1" aria-label="First">
-                                <span aria-hidden="true">&laquo;&laquo;</span>
-                            </a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="?page={{ Customers.previous_page_number }}"
-                               aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                            </a>
-                        </li>
-                    {% else %}
-                        <li class="page-item disabled">
-                            <span class="page-link">&laquo;&laquo;</span>
-                        </li>
-                        <li class="page-item disabled">
-                            <span class="page-link">&laquo;</span>
-                        </li>
-                    {% endif %}
-
-                    {% for num in Customers.paginator.page_range %}
-                        {% if Customers.number == num %}
-                            <li class="page-item active"><span class="page-link">{{ num }}</span></li>
-                        {% elif num > Customers.number|add:-3 and num < Customers.number|add:3 %}
-                            <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                    <div class="card-footer d-flex align-items-center justify-content-center">
+                        {% if Customers.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page=1" aria-label="First">
+                                    <span aria-hidden="true">&laquo;&laquo;</span>
+                                </a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ Customers.previous_page_number }}"
+                                   aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                        {% else %}
+                            <li class="page-item disabled">
+                                <span class="page-link">&laquo;&laquo;</span>
+                            </li>
+                            <li class="page-item disabled">
+                                <span class="page-link">&laquo;</span>
                             </li>
                         {% endif %}
-                    {% endfor %}
 
-                    {% if Customers.has_next %}
-                        <li class="page-item">
-                            <a class="page-link" href="?page={{ Customers.next_page_number }}"
-                               aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                            </a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="?page={{ Customers.paginator.num_pages }}"
-                               aria-label="Last">
-                                <span aria-hidden="true">&raquo;&raquo;</span>
-                            </a>
-                        </li>
-                    {% else %}
-                        <li class="page-item disabled">
-                            <span class="page-link">&raquo;</span>
-                        </li>
-                        <li class="page-item disabled">
-                            <span class="page-link">&raquo;&raquo;</span>
-                        </li>
-                    {% endif %}
-                
+                        {% for num in Customers.paginator.page_range %}
+                            {% if Customers.number == num %}
+                                <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+                            {% elif num > Customers.number|add:-3 and num < Customers.number|add:3 %}
+                                <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+
+                        {% if Customers.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ Customers.next_page_number }}"
+                                   aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ Customers.paginator.num_pages }}"
+                                   aria-label="Last">
+                                    <span aria-hidden="true">&raquo;&raquo;</span>
+                                </a>
+                            </li>
+                        {% else %}
+                            <li class="page-item disabled">
+                                <span class="page-link">&raquo;</span>
+                            </li>
+                            <li class="page-item disabled">
+                                <span class="page-link">&raquo;&raquo;</span>
+                            </li>
+                        {% endif %}
+
+                    </div>
+                </div>
             </div>
             <footer class="footer">
                 <div class="row g-0 justify-content-between fs--1 mt-4 mb-3">
@@ -2478,16 +2486,15 @@
                                            id="modal-auth-password"/>
                                 </div>
                                 <div class="mb-3 col-sm-6">
-                                    <label class="form-label" for="modal-auth-confirm-password">Confirm
-                                        Password</label>
+                                    <label class="form-label" for="modal-auth-confirm-password">Confirm Password</label>
                                     <input class="form-control" type="password" autocomplete="on"
                                            id="modal-auth-confirm-password"/>
                                 </div>
                             </div>
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="modal-auth-register-checkbox"/>
-                                <label class="form-label" for="modal-auth-register-checkbox">I accept the <a
-                                        href="#!">terms </a>and <a href="#!">privacy policy</a></label>
+                                <label class="form-label" for="modal-auth-register-checkbox">I accept the <a href="#!">terms </a>and
+                                    <a href="#!">privacy policy</a></label>
                             </div>
                             <div class="mb-3">
                                 <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">
@@ -2502,11 +2509,10 @@
                         <div class="row g-2 mt-2">
                             <div class="col-sm-6"><a class="btn btn-outline-google-plus btn-sm d-block w-100"
                                                      href="#"><span class="fab fa-google-plus-g me-2"
-                                                                    data-fa-transform="grow-8"></span> google</a>
-                            </div>
+                                                                    data-fa-transform="grow-8"></span> google</a></div>
                             <div class="col-sm-6"><a class="btn btn-outline-facebook btn-sm d-block w-100"
-                                                     href="#"><span
-                                    class="fab fa-facebook-square me-2" data-fa-transform="grow-8"></span> facebook</a>
+                                                     href="#"><span class="fab fa-facebook-square me-2"
+                                                                    data-fa-transform="grow-8"></span> facebook</a>
                             </div>
                         </div>
                     </div>
