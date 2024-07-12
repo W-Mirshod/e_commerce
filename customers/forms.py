@@ -82,13 +82,3 @@ class UserModelForm(forms.ModelForm):
             self.save_m2m()
         return user
 
-
-EXPORT_FORMAT_CHOICES = [
-    ('csv', 'CSV'),
-    ('xlsx', 'Excel'),
-    ('json', 'JSON'),
-]
-
-
-class ExportForm(forms.Form):
-    export_format = forms.ChoiceField(choices=EXPORT_FORMAT_CHOICES)

@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
 from customers.admin import CustomerResource
-from customers.forms import CustomerModelForm, Customer, ExportForm
+from customers.forms import CustomerModelForm, Customer
 
 
 def customers(request):
@@ -95,35 +95,23 @@ def sort_by_date(request):
 
 def export_data(request):
     if request.method == 'GET':
-        form = ExportForm(request.POST)
-        if form.is_valid():
-            export_format = form.cleaned_data['export_format']
-            resource = CustomerResource
-            dataset = resource.export()
-            print(1)
-            if export_format == 'csv':
-                response = HttpResponse(dataset.csv, content_type='text/csv')
-                response['Content-Disposition'] = 'attachment; filename="exported_data.csv"'
-                print(2)
-                return redirect('customers')
+        resource = CustomerResource()
+        dataset = resource.export()
 
-            elif export_format == 'xlsx':
-                response = HttpResponse(dataset.xlsx,
-                                        content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
-                response['Content-Disposition'] = 'attachment; filename="exported_data.xlsx"'
-                return redirect('customers')
+        if request.GET.get('export_options') == 'csv':
+            response = HttpResponse(dataset.csv, content_type='text/csv')
+            response['Content-Disposition'] = 'attachment; filename="exported_data.csv"'
+        elif request.GET.get('export_options') == 'xlsx':
+            response = HttpResponse(dataset.xlsx,
+                                    content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+            response['Content-Disposition'] = 'attachment; filename="exported_data.xlsx"'
+        elif request.GET.get('export_options') == 'json':
+            print(3)
+            response = HttpResponse(dataset.json, content_type='application/json')
+            response['Content-Disposition'] = 'attachment; filename="exported_data.json"'
+        else:
+            response = HttpResponse(status=400)
 
-            elif export_format == 'json':
-                response = HttpResponse(dataset.json, content_type='application/json')
-                response['Content-Disposition'] = 'attachment; filename="exported_data.json"'
-                print(3)
-                return redirect('customers')
-            else:
-                response = HttpResponse(status=400)
-                return redirect('customers')
-
-            return response
-    else:
-        form = ExportForm()
+        return response
 
     return render(request, 'customers/customers.html', {'form': form})
