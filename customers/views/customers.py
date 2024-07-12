@@ -1,8 +1,7 @@
 from django.core.paginator import Paginator
 from django.db.models import Q
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseBadRequest
 from django.shortcuts import render, redirect
-
 from customers.admin import CustomerResource
 from customers.forms import CustomerModelForm, Customer
 
@@ -100,18 +99,20 @@ def export_data(request):
 
         if request.GET.get('export_options') == 'csv':
             response = HttpResponse(dataset.csv, content_type='text/csv')
-            response['Content-Disposition'] = 'attachment; filename="exported_data.csv"'
+            response['Content-Disposition'] = 'attachment; filename="my_model_data.csv"'
         elif request.GET.get('export_options') == 'xlsx':
             response = HttpResponse(dataset.xlsx,
                                     content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
-            response['Content-Disposition'] = 'attachment; filename="exported_data.xlsx"'
+            response['Content-Disposition'] = 'attachment; filename="my_model_data.xlsx"'
         elif request.GET.get('export_options') == 'json':
-            print(3)
             response = HttpResponse(dataset.json, content_type='application/json')
-            response['Content-Disposition'] = 'attachment; filename="exported_data.json"'
+            response['Content-Disposition'] = 'attachment; filename="my_model_data.json"'
+        elif request.GET.get('export_options') == 'yaml':
+            response = HttpResponse(dataset.yaml, content_type='application/x-yaml')
+            response['Content-Disposition'] = 'attachment; filename="my_model_data.yaml"'
         else:
-            response = HttpResponse(status=400)
+            return HttpResponseBadRequest("Unsupported format.")
 
         return response
 
-    return render(request, 'customers/customers.html', {'form': form})
+    return render(request, 'customers/customers.html')
