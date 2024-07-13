@@ -19,6 +19,7 @@ class Customer(models.Model):
 
     class Meta:
         verbose_name_plural = 'All Customers'
+        ordering = ['id']
 
 
 class User(AbstractBaseUser, PermissionsMixin):

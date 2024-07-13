@@ -1,5 +1,5 @@
 .venv
-.env
 .gitignore
 media
 db.sqlite3
+__pycache__/
