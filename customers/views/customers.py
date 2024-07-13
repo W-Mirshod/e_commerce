@@ -1,7 +1,7 @@
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Q
 from django.http import HttpResponse, HttpResponseBadRequest
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from customers.admin import CustomerResource
 from customers.forms import CustomerModelForm, Customer
@@ -34,7 +34,7 @@ class CustomerView(View):
 
 class CustomerDetailView(View):
     def get(self, request, customer_id):
-        customer = Customer.objects.get(id=customer_id)
+        customer = get_object_or_404(Customer, id=customer_id)
         context = {'customer': customer}
         return render(request, 'customers/customer-details.html', context)
 
@@ -54,37 +54,23 @@ class AddCustomerView(View):
 
 class DeleteCustomerView(View):
     def get(self, request, customer_id):
-        customer = Customer.objects.get(id=customer_id)
+        customer = get_object_or_404(Customer, id=customer_id)
         customer.delete()
         return redirect('customers')
 
 
 class EditCustomerView(View):
     def get(self, request, customer_id):
-        customer = Customer.objects.get(id=customer_id)
+        customer = get_object_or_404(Customer, id=customer_id)
         form = CustomerModelForm(instance=customer)
         return render(request, 'customers/edit_customer.html', {'form': form})
 
     def post(self, request, customer_id):
-        customer = Customer.objects.get(id=customer_id)
-
+        customer = get_object_or_404(Customer, id=customer_id)
         form = CustomerModelForm(data=request.POST, files=request.FILES, instance=customer)
         if form.is_valid():
             form.save()
             return redirect('customers')
-
-
-# def edit_customer(request, customer_id):
-#     customer = Customer.objects.get(id=customer_id)
-#     form = CustomerModelForm(instance=customer)
-#     if request.method == 'POST':
-#         form = CustomerModelForm(data=request.POST, files=request.FILES, instance=customer)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('customers')
-#
-#     context = {'form': form}
-#     return render(request, 'customers/edit_customer.html', context)
 
 
 class ExportingCustomersView(View):
