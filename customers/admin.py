@@ -19,7 +19,7 @@ class CustomerResource(resources.ModelResource):
 class CustomerAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     resource_class = CustomerResource
 
-    list_display = ('id', 'full_name', 'email', 'joined', 'address', 'is_active')
+    list_display = ('id', 'full_name', 'email', 'phone', 'joined', 'address', 'is_active')
     search_fields = ('id', 'full_name', 'phone')
     list_filter = ('id', 'full_name')
 

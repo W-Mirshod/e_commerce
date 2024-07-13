@@ -313,7 +313,7 @@
                                     </ul>
                                 </li>
                                 <li class="nav-item"><a class="nav-link active"
-                                                        href="../../app/e-commerce/customers.html"
+                                                        href="{% url 'customers' %}"
                                                         aria-expanded="false">
                                     <div class="d-flex align-items-center"><span
                                             class="nav-link-text ps-1">Customers</span>
@@ -2358,16 +2358,15 @@
                                                     {% endif %}
                                                 </div>
                                                 <div class="flex-1">
-                                                    <h5 class="mb-0 fs--1">{{ cus.name }}</h5>
+                                                    <h5 class="mb-0 fs--1">{{ cus.full_name }}</h5>
                                                 </div>
                                             </div>
                                         </a></td>
                                         <td class="email align-middle py-2"><a
                                                 href="mailto:ricky@example.com">{{ cus.email }}</a></td>
-                                        <td class="phone align-middle white-space-nowrap py-2"><a href="tel:2012001851">(201)
-                                            200-1851</a></td>
-                                        <td class="address align-middle white-space-nowrap ps-5 py-2">{{ cus.country }}, {{ cus.city }}</td>
-                                        <td class="joined align-middle py-2">{{ cus.created_date }}</td>
+                                        <td class="phone align-middle white-space-nowrap py-2"><a href="tel:{{ cus.phone }}">{{ cus.phone }}</a></td>
+                                        <td class="address align-middle white-space-nowrap ps-5 py-2">{{ cus.address }}</td>
+                                        <td class="joined align-middle py-2">{{ cus.joined }}</td>
                                         <td class="align-middle white-space-nowrap py-2 text-end">
                                             <div class="dropdown font-sans-serif position-static">
                                                 <button class="btn btn-link text-600 btn-sm dropdown-toggle btn-reveal"

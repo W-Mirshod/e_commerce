@@ -10,6 +10,7 @@ class Customer(models.Model):
     full_name = models.CharField(max_length=155, null=True, blank=True)
     email = models.EmailField(unique=True)
     address = models.CharField(max_length=150)
+    phone = models.CharField(max_length=25)
     is_active = models.BooleanField(default=True)
     joined = models.DateTimeField(default=datetime.now())
     image = models.ImageField(upload_to='customer/', null=True, blank=True)
