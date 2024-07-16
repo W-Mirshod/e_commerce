@@ -47,7 +47,7 @@ class RegistrationForm(forms.ModelForm):
     def clean_email(self):
         email = self.cleaned_data.get('email')
         if User.objects.filter(email=email).exists():
-            raise forms.ValidationError(f'This {email} is already registered')
+            raise forms.ValidationError(f"This {email} is already registered")
         return email
 
     def clean_password(self):
@@ -71,7 +71,7 @@ class RegistrationForm(forms.ModelForm):
         send_mail(
             subject="Account Activation",
             message=f"Please click the following link to activate your account: {activation_link}",
-            from_email='python3526@gmail.com',
+            from_email='W Man',
             recipient_list=[user.email],
             fail_silently=False,
         )

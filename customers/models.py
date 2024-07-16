@@ -1,12 +1,11 @@
 import uuid
-from datetime import datetime, timezone
+from datetime import datetime
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
 from django.db import models
 from customers.managers import CustomUserManager
 
 
-# Create your models here.
 class Customer(models.Model):
     full_name = models.CharField(max_length=155, null=True, blank=True)
     email = models.EmailField(unique=True)
