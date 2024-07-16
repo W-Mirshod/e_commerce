@@ -1,3 +1,4 @@
+import uuid
 from datetime import datetime, timezone
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
@@ -24,17 +25,22 @@ class Customer(models.Model):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    phone = models.CharField(unique=True, max_length=13)
+    email = models.EmailField(unique=True)
     username = models.CharField(max_length=35, null=True, blank=True)
-    birth_of_date = models.DateField(null=True, blank=True)
+    birth_of_date = models.DateField(auto_now_add=True)
 
-    is_active = models.BooleanField(default=True)
+    is_active = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=True)
     is_superuser = models.BooleanField(default=True)
 
     objects = CustomUserManager()
-    USERNAME_FIELD = 'phone'
+    USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 
     def __str__(self):
-        return self.phone
+        return self.email
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    activation_token = models.UUIDField(default=uuid.uuid4, editable=False)

@@ -27,6 +27,6 @@ class CustomerAdmin(ImportExportModelAdmin, admin.ModelAdmin):
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
     form = UserModelForm
-    list_display = ('id', 'username', 'phone', 'is_active')
-    search_fields = ('id', 'username', 'phone')
+    list_display = ('id', 'username', 'email', 'is_active')
+    search_fields = ('id', 'username', 'email')
     list_filter = ('id', 'username')

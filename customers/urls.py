@@ -2,7 +2,7 @@ from django.urls import path
 
 from customers.views.customers import CustomerView, CustomerDetailView, AddCustomerView, EditCustomerView, \
     DeleteCustomerView, filter_page, sort_by_id, sort_by_id_desc, sort_by_name, sort_by_date, ExportingCustomersView
-from customers.views.auth import login_page, logout_page, sign_up
+from customers.views.auth import LoginView, LogoutView, SignUpView, ActivateView
 
 urlpatterns = [
     path('customers/', CustomerView.as_view(), name='customers'),
@@ -17,7 +17,8 @@ urlpatterns = [
     path('sort_by/sort_by_date', sort_by_date, name='sort_by_date'),
     path('exporting/', ExportingCustomersView.as_view(), name='export_data'),
 
-    path('login/', login_page, name='login'),
-    path('logout/', logout_page, name='logout'),
-    path('register/', sign_up, name='register'),
+    path('login/', LoginView.as_view(), name='login'),
+    path('logout/', LogoutView.as_view(), name='logout'),
+    path('register/', SignUpView.as_view(), name='register'),
+    path('activate/<str:token>/', ActivateView.as_view(), name='activate'),
 ]
