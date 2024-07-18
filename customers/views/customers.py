@@ -4,7 +4,8 @@ from django.http import HttpResponse, HttpResponseBadRequest
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from customers.admin import CustomerResource
-from customers.forms import CustomerModelForm, Customer
+from customers.forms import CustomerModelForm
+from customers.models import Customer
 
 
 class CustomerView(View):
