@@ -45,3 +45,5 @@ class User(AbstractBaseUser, PermissionsMixin):
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     activation_token = models.UUIDField(default=uuid.uuid4, editable=False)
+
+    objects = models.Manager
