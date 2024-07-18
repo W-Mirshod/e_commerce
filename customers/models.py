@@ -15,6 +15,8 @@ class Customer(models.Model):
     joined = models.DateTimeField(default=datetime.now())
     image = models.ImageField(upload_to='customer/', null=True, blank=True)
 
+    objects = models.Manager
+
     def __str__(self):
         return self.email
 
