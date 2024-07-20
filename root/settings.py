@@ -14,7 +14,6 @@ import environ
 import os
 
 env = environ.Env(
-    # set casting, default value
     DEBUG=(bool, False)
 )
 
@@ -131,9 +130,6 @@ MEDIA_URL = 'media/'
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'app/static/')
 
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'customers.User'
 
@@ -141,16 +137,16 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'python3526@gmail.com'
-EMAIL_HOST_PASSWORD = 'vizr qhlf eazo kzxw'
+EMAIL_HOST_USER = env('E_H_USER')
+EMAIL_HOST_PASSWORD = env('E_H_PASSWORD')
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'social_core.backends.google.GoogleOAuth2',
 ]
 
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '216694800477-koaq8pqlbjmlc32vj83jusrpjbt0pb19.apps.googleusercontent.com'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = env('G_OAUTH2_KEY')
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = env('G_OAUTH2_SECRET')
 
 SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.social_auth.social_details',
