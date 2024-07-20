@@ -75,19 +75,19 @@
         <div class="row flex-center min-vh-100 py-6">
             <div class="col-sm-10 col-md-8 col-lg-6 col-xl-5 col-xxl-4"><a class="d-flex flex-center mb-4"
                                                                            href="{% url 'index' %}"><img class="me-2"
-                                                                                                           src="{% static 'assets/img/icons/spot-illustrations/falcon.png' %}"
-                                                                                                           alt=""
-                                                                                                           width="58"/><span
+                                                                                                         src="{% static 'assets/img/icons/spot-illustrations/falcon.png' %}"
+                                                                                                         alt=""
+                                                                                                         width="58"/><span
                     class="font-sans-serif fw-bolder fs-5 d-inline-block">falcon</span></a>
                 <div class="card">
                     {% if form.errors %}
-                        {% for field in form %}
-                            {% for error in field.errors %}
-                                <div class="alert alert-danger">
-                                    <strong>{{ error|escape }}</strong>
-                                </div>
-                            {% endfor %}
-                        {% endfor %}
+                    {% for field in form %}
+                    {% for error in field.errors %}
+                    <div class="alert alert-danger">
+                        <strong>{{ error|escape }}</strong>
+                    </div>
+                    {% endfor %}
+                    {% endfor %}
                     {% endif %}
                     <div class="card-body p-4 p-sm-5">
                         <div class="row flex-between-center mb-2">
@@ -128,16 +128,22 @@
                             <div class="divider-content-center">or log in with</div>
                         </div>
                         <div class="row g-2 mt-2">
-                            <div class="col-sm-6"><a class="btn btn-outline-google-plus btn-sm d-block w-100"
-                                                     href="#"><span class="fab fa-google-plus-g me-2"
-                                                                    data-fa-transform="grow-8"></span> google</a></div>
-                            <div class="col-sm-6"><a class="btn btn-outline-google-plus btn-sm d-block w-100"
-                                                     href="{% url 'social:begin' 'twitter' %}"><span class="fab fa-google-plus-g me-2"
-                                                                    data-fa-transform="grow-8"></span> twitter</a></div>
+                            <div class="col-sm-6"><a
+                                    class="btn btn-outline-google-plus btn-sm d-block w-100"
+                                    href="{% url 'social:begin' 'google-oauth2' %}"><span
+                                    class="fab fa-google-plus-g me-2" data-fa-transform="grow-8"></span>
+                                Google</a></div>
+                            <div class="col-sm-6"><a
+                                    class="btn btn-outline-twitter btn-sm d-block w-100"
+                                    href="{% url 'social:begin' 'twitter' %}"><span
+                                    class="fab fa-twitter me-2"
+                                    data-fa-transform="grow-8"></span> Twitter</a></div>
                             <div class="col-sm-6"><a class="btn btn-outline-facebook btn-sm d-block w-100"
-                                                     href="#"><span class="fab fa-facebook-square me-2"
-                                                                    data-fa-transform="grow-8"></span> facebook</a>
-                            </div>
+                                                     href="{% url 'social:begin' 'facebook' %}"><span
+                                    class="fab fa-facebook-square me-2"
+                                    data-fa-transform="grow-8"></span>
+                                Facebook</a></div>
+
                         </div>
                     </div>
                 </div>
