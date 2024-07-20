@@ -160,4 +160,4 @@ SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.user.user_details',
 )
 
-LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = 'http://127.0.0.1:8000/'

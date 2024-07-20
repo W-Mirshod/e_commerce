@@ -2,7 +2,7 @@ from django.contrib import admin
 from import_export import resources
 from import_export.admin import ImportExportModelAdmin
 from customers.forms import UserModelForm
-from customers.models import Customer, User
+from customers.models import Customer, User, Profile
 
 admin.site.index_title = "Admin's Page"
 admin.site.site_title = "Smth"
@@ -30,3 +30,10 @@ class UserAdmin(admin.ModelAdmin):
     list_display = ('id', 'username', 'email', 'is_active')
     search_fields = ('id', 'username', 'email')
     list_filter = ('id', 'username')
+
+
+@admin.register(Profile)
+class ProfileAdmin(admin.ModelAdmin):
+    list_display = ('user', 'activation_token',)
+    search_fields = ('user',)
+    list_filter = ('user', 'activation_token')

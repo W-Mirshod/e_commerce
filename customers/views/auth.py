@@ -1,10 +1,14 @@
 import uuid
 from django.contrib.auth import authenticate, login, logout
+from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from django.views.generic import CreateView
 from customers.forms import LoginForm, RegistrationForm
-from customers.models import Profile
+from customers.models import Profile, User
+from django.contrib.auth.tokens import default_token_generator
+from django.utils.http import urlsafe_base64_decode
+from django.contrib.auth.models import User
 
 
 class LoginView(View):
