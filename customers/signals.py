@@ -1,5 +1,6 @@
 import os
 import json
+from django.core.mail import send_mail
 from root.settings import BASE_DIR
 from django.db.models.signals import post_save, pre_delete
 from django.dispatch import receiver
@@ -16,6 +17,20 @@ def create_user_profile(sender, instance, created, **kwargs):
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
     instance.profile.save()
+
+    def send_email(self, user):
+        token = user.profile.activation_token
+        activation_link = f"http://127.0.0.1:8000/activate/{token}"
+
+        send_mail(
+            subject="Account Activation",
+            message=f"Please click the following link to activate your account: {activation_link}",
+            from_email='W Man',
+            recipient_list=[user.email],
+            fail_silently=False,
+        )
+
+    return send_email(instance, instance)
 
 
 @receiver(pre_delete, sender=Customer)
