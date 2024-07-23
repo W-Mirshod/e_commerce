@@ -17,8 +17,7 @@ def archiving_deleted_products(sender, instance, **kwargs):
         'ratings': instance.ratings,
         'favoured': instance.favoured,
         'add_to_cart': instance.add_to_cart,
-        'discount': instance.discount
-    }
+        'discount': instance.discount}
 
     with open(file_path, 'w') as file:
         json.dump(product_info, file, indent=4)

@@ -29,8 +29,7 @@ def archiving_deleted_users(sender, instance, **kwargs):
         'address': instance.address,
         'phone': instance.phone,
         'is_active': instance.is_active,
-        'joined': str(instance.joined)
-    }
+        'joined': str(instance.joined)}
 
     with open(file_path, 'w') as file:
         json.dump(file_info, file, indent=4)
