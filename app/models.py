@@ -1,7 +1,6 @@
 from django.db import models
 
 
-# Create your models here.
 class Product(models.Model):
     name = models.CharField(max_length=100)
     price = models.FloatField(null=False)
@@ -10,6 +9,8 @@ class Product(models.Model):
     favoured = models.BooleanField(default=False)
     add_to_cart = models.BooleanField(default=False)
     discount = models.FloatField(default=0.0)
+
+    objects = models.Manager
 
     class Meta:
         verbose_name_plural = "All Products"
@@ -34,8 +35,9 @@ class Product(models.Model):
 
     @property
     def discount_price(self):
-        if self.discount > 0:
+        if self.discount:
             return (1 - self.discount / 100) * self.price
+        return self.price
 
     def __str__(self):
         return self.name
@@ -67,3 +69,5 @@ class AttributeReference(models.Model):
     product = models.ForeignKey('app.Product', on_delete=models.CASCADE)
     key = models.ForeignKey('app.AttributeKey', on_delete=models.CASCADE)
     value = models.ForeignKey('app.AttributeValue', on_delete=models.CASCADE)
+
+    objects = models.Manager
