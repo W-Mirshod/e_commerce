@@ -1,10 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Welcome to Our Website</title>
 </head>
-<body>
-$END$
+<body style="font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 0;">
+<div style="width: 80%; margin: auto; overflow: hidden;">
+    <div style="background: #333; color: #fff; padding: 20px 0; text-align: center;">
+        <h1>Welcome to Our Website!</h1>
+    </div>
+    <div style="background: #fff; padding: 20px; margin: 20px 0;">
+        <p>Dear {{ customer.full_name }},</p>
+        <p>Thank you for creating an account with us. We're thrilled to have you on board!</p>
+        <p>Feel free to explore our website and let us know if you have any questions.</p>
+        <p>You can enter <a href="http://127.0.0.1:8000/">our website</a></p>
+    </div>
+    <div style="background: #333; color: #fff; text-align: center; padding: 10px 0;">
+        <p>2024 Our Website. All rights reserved.</p>
+    </div>
+</div>
 </body>
 </html>
