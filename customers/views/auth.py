@@ -55,5 +55,7 @@ class ActivateView(View):
         user = profile.user
         user.is_active = True
         user.save()
+        user.backend = "django.contrib.auth.backends.ModelBackend"
+        login(request, user, backend=user.backend)
         login(request, user)
         return redirect('customers')

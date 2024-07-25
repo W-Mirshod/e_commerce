@@ -1,9 +1,17 @@
 from django.shortcuts import render, redirect
+from django.views import View
+
 from app.forms import ProductForm
 from app.models import Product
 
 
-# Create your views here.
+class StaticsPage(View):
+    def get(self, request):
+        products = Product.objects.all()
+        context = {'Products': products}
+        return render(request, 'statics.html', context)
+
+
 def index(request):
     products = Product.objects.all().order_by('-id')
     context = {'Products': products}

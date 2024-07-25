@@ -1,7 +1,22 @@
 from django.db import models
+from enum import Enum
 
 
 class Product(models.Model):
+    COLOR_CHOICES = [
+        ('black', 'black'),
+        ('white', 'white'),
+        ('Red', 'red'),
+        ('Green', 'green'),
+        ('Blue', 'blue'),
+        ('Yellow', 'yellow'),
+        ('Purple', 'purple'),
+        ('Orange', 'orange'),
+        ('Pink', 'pink'),
+        ('Teal', 'teal'),
+        ('Gray', 'gray'),
+        ('Brown', 'brown'), ]
+
     name = models.CharField(max_length=100)
     price = models.FloatField(null=False)
     description = models.TextField()
@@ -9,6 +24,13 @@ class Product(models.Model):
     favoured = models.BooleanField(default=False)
     add_to_cart = models.BooleanField(default=False)
     discount = models.FloatField(default=0.0)
+    color = models.CharField(
+        choices=COLOR_CHOICES,
+        help_text="Select a color for the product",)
+
+    @property
+    def status(self) -> str:
+        return self.price // 20
 
     objects = models.Manager
 

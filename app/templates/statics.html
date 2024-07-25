@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Statics</title>
+    <link rel="stylesheet" href="{% static 'extras/charts.css' %}">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<h1>Products</h1>
+<div class="simple-bar-chart">
+    {% for product in Products %}
+    <div class="item" style="--clr: {{ product.color }}; --val: {{ product.status }}10">
+        <div class="label">{{ product.name }}</div>
+        <div class="value">{{ product.price }}</div>
+    </div>
+    {% endfor %}
+</div>
+
+<h1>The Most</h1>
+<div class="simple-bar-chart">
+    {% for product in Products %}
+    <div class="item" style="--clr: {{ product.color }}; --val: {{ product.status }}10">
+        <div class="label">{{ product.name }}</div>
+        <div class="value">{{ product.price }}</div>
+    </div>
+    <div class="item" style="--clr: {{ product.color }}; --val: {{ product.status }}10">
+        <div class="label">{{ product.name }}</div>
+        <div class="value">{{ product.price }}</div>
+    </div>
+    <div class="item" style="--clr: {{ product.color }}; --val: {{ product.status }}10">
+        <div class="label">{{ product.name }}</div>
+        <div class="value">{{ product.price }}</div>
+    </div>
+    <div class="item" style="--clr: {{ product.color }}; --val: {{ product.status }}10">
+        <div class="label">{{ product.name }}</div>
+        <div class="value">{{ product.price }}</div>
+    </div>
+    {% endfor %}
+</div>
+
+<!-- partial -->
+</body>
+</html>
