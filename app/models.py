@@ -1,5 +1,4 @@
 from django.db import models
-from enum import Enum
 
 
 class Product(models.Model):

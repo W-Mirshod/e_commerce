@@ -14,31 +14,36 @@
     {% for product in Products %}
     <div class="item" style="--clr: {{ product.color }}; --val: {{ product.status }}10">
         <div class="label">{{ product.name }}</div>
-        <div class="value">{{ product.price }}</div>
+        <div class="value">{{ product.discount_price }}</div>
     </div>
     {% endfor %}
 </div>
 
-<h1>The Most</h1>
+<h1>Products' Statics</h1>
 <div class="simple-bar-chart">
-    {% for product in Products %}
-    <div class="item" style="--clr: {{ product.color }}; --val: {{ product.status }}10">
-        <div class="label">{{ product.name }}</div>
-        <div class="value">{{ product.price }}</div>
+    {% if Products %}
+    <div class="item" style="--clr: green; --val: {{ min_price_st }}">
+        <div class="label">Minimal Price</div>
+        <div class="value">{{ min_price }}</div>
     </div>
-    <div class="item" style="--clr: {{ product.color }}; --val: {{ product.status }}10">
-        <div class="label">{{ product.name }}</div>
-        <div class="value">{{ product.price }}</div>
+    <div class="item" style="--clr: red; --val: {{ max_price_st }}10">
+        <div class="label">Maximal Price</div>
+        <div class="value">{{ max_price }}</div>
     </div>
-    <div class="item" style="--clr: {{ product.color }}; --val: {{ product.status }}10">
-        <div class="label">{{ product.name }}</div>
-        <div class="value">{{ product.price }}</div>
+    <div class="item" style="--clr: #15ddef; --val: {{ average_price_st }}">
+        <div class="label">Average Price</div>
+        <div class="value">{{ average_price }}</div>
     </div>
-    <div class="item" style="--clr: {{ product.color }}; --val: {{ product.status }}10">
-        <div class="label">{{ product.name }}</div>
-        <div class="value">{{ product.price }}</div>
-    </div>
-    {% endfor %}
+    {% endif %}
+</div>
+
+<h1>Customers' Statics</h1>
+<div class="simple-bar-chart">
+    {% if customers_count %}
+    <div class="item" style="--clr: #86d610; --val: {{ customers_count_st }}">
+        <div class="label">Minimal Price</div>
+        <div class="value">{{ customers_count }}</div>
+    {% endif %}
 </div>
 
 <!-- partial -->
